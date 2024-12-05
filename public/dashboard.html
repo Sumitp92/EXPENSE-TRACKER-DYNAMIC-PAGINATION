@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
+</head>
+<body>
+    <div class="Expense">
+        <form id="expense-form" method="post" action="/api/expenses">
+            <label for="amount">Choose expense amount</label>
+            <input type="number" id="amount" placeholder="Amount" required />
+        
+            <label for="description">Choose description</label>
+            <input type="text" id="description" placeholder="Description" required />
+        
+            <label for="category">Choose category</label>
+            <select id="category" name="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="category1">Salary</option>
+                <option value="category2">Food</option>
+                <option value="category3">Petrol</option>
+                <option value="category4">Shopping</option>
+                <option value="category5">Entertainment</option>
+                <option value="category6">Grocery</option>
+            </select>
+    
+            <button type="submit" id="submit-btn">Add Expense</button>
+        </form>
+
+        <div id="premium-message"></div>
+        <button id="buy-premium">Buy Premium</button>
+        <button id="show-leaderboard">Show Leaderboard</button>
+        <ul id="leaderboard-list"></ul>
+        <script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        
+        <div id="filter-section">
+            <label for="filter">Filter by:</label>
+            <select id="filter">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="all">All</option>
+            </select>
+            <button id="apply-filter">Apply Filter</button>
+        </div>
+
+        <div id="entries-section">
+            <h2>Your Expenses</h2>
+            <ul id="expense-list"></ul>
+            <div id="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="page-info"></span>
+                <button id="next-page">Next</button>
+            </div>
+        </div>
+
+        <select id="itemsPerPage" aria-label="Select number of expenses per page">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+        </select>
+        
+        <div id="download-section">
+            <button id="download-button" disabled>Download</button>
+        </div>
+    </div>
+
+    <div>
+        <h3>Past Downloads</h3>
+        <ul id="download-history"></ul>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

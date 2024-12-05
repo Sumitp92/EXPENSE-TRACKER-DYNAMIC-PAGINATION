@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+</head>
+<body>
+    <h1>Reset Your Password</h1>
+    <form id="ResetPasswordForm" method="POST">
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required />
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required />
+        <button type="submit">Update Password</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resetId = window.location.pathname.split('/').pop(); 
+
+            const form = document.getElementById('ResetPasswordForm');
+            if (form) {
+                form.action = `/password/resetpassword/${resetId}`; 
+            }
+
+            // Handle password reset form submission
+            form?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (newPassword !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                if (newPassword.length < 2) {
+                    alert('Password must be at least 2 characters long!');
+                    return;
+                }
+
+                try {
+                    const response = await axios.post(`/password/updatepassword/${resetId}`, { newPassword });
+
+                    alert(response.data.message);
+
+                    window.location.href = '/login.html';
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to reset password. Please try again later.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
